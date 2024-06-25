@@ -1,7 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ThreeEngine } from "./components/ThreeEngine";
+import { ref, onMounted } from "vue";
+
+const threeTargetRef = ref(null);
+
+onMounted(() => {
+  const TE = new ThreeEngine(threeTargetRef.value);
+});
+</script>
 
 <template>
-  <div>hello threejs</div>
+  <div class="three-canvas" ref="threeTargetRef"></div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.three-canvas {
+  width: 100%;
+  height: 100%;
+}
+</style>
