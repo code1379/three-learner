@@ -68,6 +68,22 @@ export class ThreeEngine {
     // 背景色
     // this.renderer.setClearColor("rgb(255, 255, 255)");
     // this.renderer.clearColor();
-    this.renderer.render(this.scene, this.camera);
+
+    // 如果想要渲染出一个能运动的物体，需要每帧都重新执行一遍渲染函数
+    // this.renderer.render(this.scene, this.camera);
+
+    // setInterval(() => {
+    //   this.renderer.render(this.scene, this.camera);
+    // }, 1000 / 60);
+
+    const animate = () => {
+      box.position.x += -0.01;
+      box.rotation.y += 0.01;
+      this.camera.position.x += -0.01;
+      this.renderer.render(this.scene, this.camera);
+      requestAnimationFrame(animate);
+    };
+
+    animate();
   }
 }
