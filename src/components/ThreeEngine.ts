@@ -4,13 +4,14 @@ import {
   PerspectiveCamera,
   Mesh,
   BoxGeometry,
-  MeshBasicMaterial,
   Vector3,
   MeshStandardMaterial,
   AmbientLight,
   AxesHelper,
   GridHelper,
 } from "three";
+
+import Stats from "three/examples/jsm/libs/stats.module";
 
 export class ThreeEngine {
   private dom: HTMLElement;
@@ -76,11 +77,21 @@ export class ThreeEngine {
     //   this.renderer.render(this.scene, this.camera);
     // }, 1000 / 60);
 
+    // 性能监视器
+    const stats = new Stats();
+    const statsDom = stats.domElement;
+    statsDom.style.position = "fixed";
+    statsDom.style.top = "0px";
+    statsDom.style.right = "5px";
+    statsDom.style.left = "unset";
+    dom.appendChild(statsDom);
+
     const animate = () => {
       box.position.x += -0.01;
       box.rotation.y += 0.01;
       this.camera.position.x += -0.01;
       this.renderer.render(this.scene, this.camera);
+      stats.update();
       requestAnimationFrame(animate);
     };
 
