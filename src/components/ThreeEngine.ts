@@ -8,6 +8,8 @@ import {
   Vector3,
   MeshStandardMaterial,
   AmbientLight,
+  AxesHelper,
+  GridHelper,
 } from "three";
 
 export class ThreeEngine {
@@ -49,9 +51,19 @@ export class ThreeEngine {
 
     // 光
     const ambientLight = new AmbientLight("rgb(255, 255, 255)", 10);
+    // 辅助工具
+    const axesHelper = new AxesHelper(100);
+    const gridHelper = new GridHelper(
+      100,
+      10,
+      "rgb(200,200,200)",
+      "rgb(0,100,100)"
+    );
 
     this.scene.add(box);
     this.scene.add(ambientLight);
+    this.scene.add(axesHelper);
+    this.scene.add(gridHelper);
 
     // 背景色
     // this.renderer.setClearColor("rgb(255, 255, 255)");
