@@ -9,9 +9,11 @@ import {
   AmbientLight,
   AxesHelper,
   GridHelper,
+  MOUSE,
 } from "three";
 
 import Stats from "three/examples/jsm/libs/stats.module";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 export class ThreeEngine {
   private dom: HTMLElement;
@@ -86,10 +88,24 @@ export class ThreeEngine {
     statsDom.style.left = "unset";
     dom.appendChild(statsDom);
 
+    // 轨道控制器
+    const orbitControls = new OrbitControls(
+      this.camera,
+      this.renderer.domElement
+    );
+    // orbitControls.autoRotate = true;
+    orbitControls.enableDamping = true;
+    orbitControls.mouseButtons = {
+      LEFT: null,
+      MIDDLE: MOUSE.DOLLY,
+      RIGHT: MOUSE.ROTATE,
+    };
+
     const animate = () => {
       box.position.x += -0.01;
       box.rotation.y += 0.01;
-      this.camera.position.x += -0.01;
+      // this.camera.position.x += -0.01;
+      orbitControls.update();
       this.renderer.render(this.scene, this.camera);
       stats.update();
       requestAnimationFrame(animate);
