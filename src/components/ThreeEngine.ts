@@ -7,6 +7,7 @@ import {
   MeshBasicMaterial,
   Vector3,
   MeshStandardMaterial,
+  AmbientLight,
 } from "three";
 
 export class ThreeEngine {
@@ -41,14 +42,20 @@ export class ThreeEngine {
     const box: Mesh = new Mesh(
       new BoxGeometry(10, 10, 10),
       // new MeshBasicMaterial({ color: 0x00ff00 })
-      new MeshStandardMaterial()
+      new MeshStandardMaterial({
+        color: "rgb(255, 255, 0)",
+      })
     );
 
+    // 光
+    const ambientLight = new AmbientLight("rgb(255, 255, 255)", 10);
+
     this.scene.add(box);
+    this.scene.add(ambientLight);
 
     // 背景色
-    this.renderer.setClearColor("rgb(255, 255, 255)");
-    this.renderer.clearColor();
+    // this.renderer.setClearColor("rgb(255, 255, 255)");
+    // this.renderer.clearColor();
     this.renderer.render(this.scene, this.camera);
   }
 }
