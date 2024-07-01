@@ -25,7 +25,10 @@ export class ThreeEngine {
 
   constructor(dom: HTMLElement) {
     this.dom = dom;
-    this.renderer = new WebGLRenderer();
+    this.renderer = new WebGLRenderer({
+      // 抗锯齿
+      antialias: true,
+    });
     this.scene = new Scene();
     this.camera = new PerspectiveCamera(
       45,
