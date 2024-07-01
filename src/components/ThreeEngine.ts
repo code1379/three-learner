@@ -2,14 +2,12 @@ import {
   WebGLRenderer,
   Scene,
   PerspectiveCamera,
-  Mesh,
-  BoxGeometry,
   Vector3,
-  MeshStandardMaterial,
   AmbientLight,
   AxesHelper,
   GridHelper,
   MOUSE,
+  Object3D,
 } from "three";
 
 import Stats from "three/examples/jsm/libs/stats.module";
@@ -47,14 +45,6 @@ export class ThreeEngine {
     // this.renderer.domElement.height = dom.offsetHeight;
     this.renderer.setSize(dom.offsetWidth, dom.offsetHeight, true);
 
-    const box: Mesh = new Mesh(
-      new BoxGeometry(10, 10, 10),
-      // new MeshBasicMaterial({ color: 0x00ff00 })
-      new MeshStandardMaterial({
-        color: "rgb(255, 255, 0)",
-      })
-    );
-
     // 光
     const ambientLight = new AmbientLight("rgb(255, 255, 255)", 10);
     // 辅助工具
@@ -66,7 +56,6 @@ export class ThreeEngine {
       "rgb(0,100,100)"
     );
 
-    this.scene.add(box);
     this.scene.add(ambientLight);
     this.scene.add(axesHelper);
     this.scene.add(gridHelper);
@@ -105,8 +94,6 @@ export class ThreeEngine {
     };
 
     const animate = () => {
-      box.position.x += -0.01;
-      box.rotation.y += 0.01;
       // this.camera.position.x += -0.01;
       orbitControls.update();
       this.renderer.render(this.scene, this.camera);
@@ -115,5 +102,11 @@ export class ThreeEngine {
     };
 
     animate();
+  }
+
+  addObject(...objects: Object3D[]) {
+    objects.forEach((object) => {
+      this.scene.add(object);
+    });
   }
 }
